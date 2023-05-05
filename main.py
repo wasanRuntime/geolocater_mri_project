@@ -27,5 +27,6 @@ for location in locations:
 df = pd.DataFrame(location_data)
 
 # Save the data to an Excel file
+# you can save in any location
 filename = 'location_data12.xlsx'
 df.to_excel(filename, index=False)
