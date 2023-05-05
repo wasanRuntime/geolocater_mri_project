@@ -1,0 +1,1 @@
+The Project is meant to generates in format of longitudes and latitudes from a given address that contains the locations.
