@@ -1,0 +1,19 @@
+import requests
+
+def get_coordinates(address):
+    # Make a request to the Google Geocoding API
+    response = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address)
+
+    # Check the response status code
+    if response.status_code == 200:
+        # The request was successful, so parse the response
+        results = response.json()["results"][0]
+
+        # Get the latitude and longitude coordinates
+        latitude = results["geometry"]["location"]["lat"]
+        longitude = results["geometry"]["location"]["lng"]
+
+        return latitude, longitude
+    else:
+        # The request failed, so raise an exception
+        raise Exception("Could not get coordinates for address: " + address)
