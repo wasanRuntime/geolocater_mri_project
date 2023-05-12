@@ -17,3 +17,15 @@ def get_coordinates(address):
     else:
         # The request failed, so raise an exception
         raise Exception("Could not get coordinates for address: " + address)
+
+
+if __name__ == "__main__":
+    # Prompt the user to input the address
+    address = input("Enter the address: ")
+
+    # Get the latitude and longitude coordinates of the address
+    latitude, longitude = get_coordinates(address)
+
+    # Print the latitude and longitude coordinates
+    print("Latitude:", latitude)
+    print("Longitude:", longitude)
