@@ -1,0 +1,41 @@
+import requests
+
+def get_coordinates(address):
+    # Make a request to the Google Geocoding API
+    response = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address)
+
+    # Check the response status code
+    if response.status_code == 200:
+        # The request was successful, so parse the response
+        results = response.json()["results"][0]
+
+        # Get the latitude and longitude coordinates
+        latitude = results["geometry"]["location"]["lat"]
+        longitude = results["geometry"]["location"]["lng"]
+
+        return latitude, longitude
+    else:
+        # The request failed, so raise an exception
+        raise Exception("Could not get coordinates for address: " + address)
+
+
+if __name__ == "__main__":
+    # Prompt the user to enter the file name of the file that contains the addresses
+    file_name = input("Enter the file name of the file that contains the addresses: ")
+
+    # Open the file
+    with open(file_name, "r") as f:
+        addresses = f.readlines()
+
+    # Get the latitude and longitude coordinates of each address
+    for address in addresses:
+        latitude, longitude = get_coordinates(address.strip())
+
+    # Prompt the user to enter the name of the file to save the coordinates to
+    save_file_name = input("Enter the name of the file to save the coordinates to: ")
+
+    # Open the file in write mode
+    with open(save_file_name, "w") as f:
+        for address in addresses:
+            latitude, longitude = get_coordinates(address.strip())
+            f.write("{},{}\n".format(latitude, longitude))
